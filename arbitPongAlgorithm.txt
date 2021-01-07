@@ -1,0 +1,5 @@
+Number of players, x.
+Number of sides, x * 2 = n
+Angles are all the same, Internal Angle = (n-2)*(180/n)
+
+Paddles sides can be longer than wall sides of shape
