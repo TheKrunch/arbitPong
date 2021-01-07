@@ -1,5 +1,6 @@
 ### TODO
 
+- [ ] Create Ball
 - [ ] Ball collision with paddle
 - [ ] Ball bouncing
 - [ ] Scoring Zone
