@@ -1,7 +1,10 @@
 ### TODO
 
-- [ ] Create Ball
-- [ ] Ball collision with paddle
+- [x] Create Ball
+- [x] Ball collision with paddle
+- [x] Ball collision with ball
+- [x] Collision logic
+- [x] GameObject classes
 - [ ] Ball bouncing
 - [ ] Scoring Zone
 - [ ] Scoreboard
