@@ -12,6 +12,10 @@
         <canvas id="canvas" width="750" height="400" style="border:1px solid lightgray;">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
+        <div style="text-align: center; width: 100%;">
+            <button type="button" onclick="window.cancelAnimationFrame(requestID); init();">Refresh</button>
+            <p>Move your paddle with WASD, click "Refresh" to reset!</p>
+        </div>
 
         <script src="./classes.js"></script>
         <script src="./scripts.js"></script>

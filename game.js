@@ -5,6 +5,7 @@ let context;
 let secondsPassed = 0;
 let oldTimeStamp = 0;
 let gameObjects;
+let requestID;
 
 window.onload = init;
 
@@ -16,7 +17,7 @@ function init() {
     createWorld(); // from scripts.js
 
     // Start the first frame request
-    window.requestAnimationFrame(gameLoop);
+    requestID = window.requestAnimationFrame(gameLoop);
 }
 
 function gameLoop(timeStamp) {
@@ -33,5 +34,5 @@ function gameLoop(timeStamp) {
     showFPS(); // from scripts.js
 
     // Keep requesting new frames
-    window.requestAnimationFrame(gameLoop);
+    requestID = window.requestAnimationFrame(gameLoop);
 }

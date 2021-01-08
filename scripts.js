@@ -7,6 +7,8 @@ var downPressed = false;
 function createWorld() {
     gameObjects = [
         new Paddle(context, 250, 300, 200, 200),
+        new Wall(context, 120, 100, 0, 0),
+        new Wall(context, 520, 50, 0, 0),
         new Ball(context, 185, 200, 100, 0),
         new Ball(context, 500, 200, -100, 0)
     ];
@@ -78,10 +80,10 @@ function intersect(o1, o2) {
     if (o1 instanceof Ball && o2 instanceof Ball)
         return ballBallIntersect(o1,o2)
 
-    if (o1 instanceof Ball && o2 instanceof Paddle || o2 instanceof Wall)
+    if (o1 instanceof Ball && (o2 instanceof Paddle || o2 instanceof Wall))
         return ballRectBetterIntersect(o1,o2)
 
-    if (o2 instanceof Ball && o1 instanceof Paddle || o1 instanceof Wall)
+    if (o2 instanceof Ball && (o1 instanceof Paddle || o1 instanceof Wall))
         return ballRectBetterIntersect(o2,o1)
 }
 

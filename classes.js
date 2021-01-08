@@ -37,8 +37,8 @@ class Paddle extends GameObject
 
 class Wall extends GameObject
 {
-    static width = 100;
-    static height = 25;
+    static width = 15;
+    static height = 200;
 
     constructor (context, x, y, vx, vy) {
         super(context, x, y, vx, vy);
