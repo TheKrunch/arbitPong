@@ -8,6 +8,7 @@
 - [ ] Ball bounce off paddle
 - [ ] Create Wall
 - [ ] Ball bounce off Wall
+- [ ] Ball bounce off Ball
 - [ ] Ball bounce effected by Paddle movement
 - [ ] Scoring Zone
 - [ ] Scoreboard
