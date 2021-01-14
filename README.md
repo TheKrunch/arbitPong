@@ -7,8 +7,9 @@
 - [x] ~GameObject classes~
 - [x] ~REFACTOR RECTANGLE DRAWING~
 - [x] ~REFACTOR RECTANGLE COLLISION~
-- [ ] Ball bounce off paddle
 - [x] ~Create Wall~
+- [x] ~Fix Rectangle Rotation Scaling Bug~
+- [ ] Ball bounce off paddle
 - [ ] Ball bounce off Wall
 - [ ] Ball bounce off Ball
 - [ ] Ball bounce effected by Paddle movement

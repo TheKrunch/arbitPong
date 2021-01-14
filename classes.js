@@ -49,9 +49,9 @@ class Rectangle extends GameObject
             child.D = {x: child.x, y: child.y + child.h};
         }
         else if (Math.abs(Math.sin(child.ang)) < 1) {
-            child.B = {x: child.x + (child.w / Math.sin(90) * Math.sin(90 - child.ang)), y: child.y - (child.w / Math.sin(90) * Math.sin(child.ang))};
-            child.C = {x: child.B.x + (child.h / Math.sin(90) * Math.sin(child.ang)), y: child.B.y + (child.h / Math.sin(90) * Math.sin(90 - child.ang))};
-            child.D = {x: child.x + (child.h / Math.sin(90) * Math.sin(child.ang)), y: child.y + (child.h / Math.sin(90) * Math.sin(90 - child.ang))};
+            child.B = {x: child.x + (child.w / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang)), y: child.y - (child.w / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang))};
+            child.C = {x: child.B.x + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang)), y: child.B.y + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang))};
+            child.D = {x: child.x + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang)), y: child.y + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang))};
         }
         else if (Math.abs(Math.sin(child.ang)) == 1) {
             child.B = {x: child.x, y: child.y - child.w};
