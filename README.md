@@ -5,8 +5,10 @@
 - [x] ~Ball collision with ball~
 - [x] ~Collision logic~
 - [x] ~GameObject classes~
+- [x] ~REFACTOR RECTANGLE DRAWING~
+- [x] ~REFACTOR RECTANGLE COLLISION~
 - [ ] Ball bounce off paddle
-- [ ] Create Wall
+- [x] ~Create Wall~
 - [ ] Ball bounce off Wall
 - [ ] Ball bounce off Ball
 - [ ] Ball bounce effected by Paddle movement
