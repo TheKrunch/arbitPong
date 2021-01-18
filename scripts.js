@@ -7,13 +7,10 @@ var selectedBall = null;
 
 function createWorld() {
     gameObjects = [
-        new Paddle(context, 250, 300, 0, 0, 100, 25, 200, Math.PI * 0.25),
-        new Paddle(context, 400, 300, 0, 0, 100, 25, 200, 0),
-        new Wall(context, 55, 100, 0, 0, 15, 250, 0, Math.PI * 0.25),
-        new Wall(context, 550, 50, 0, 0, 15, 250, 0, 0),
-        new Ball(context, 185, 200, 100, 0, 12.5),
-        new Ball(context, 500, 200, -100, 0, 20),
-        new Ball(context, 600, 200, -20, 20, 12.5),
+        // new Paddle(context, 220, 150, 0, 0, 100, 25, 200, Math.PI * 2.0),
+        new Paddle(context, 300, 350, 0, 0, 100, 25, 200, 0),
+        new Wall(context, 300, 280, 0, 0, 250, 15, 0, Math.PI * 0.55),
+        new Wall(context, 450, 150, 0, 0, 250, 15, 0, Math.PI * 0.15),
         new Ball(context, 400, 250, 0, 0, 11)
     ];
 }

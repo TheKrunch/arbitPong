@@ -43,23 +43,55 @@ class Rectangle extends GameObject
 
     update(child) {
         child.A = {x: child.x, y: child.y};
-        if (Math.sin(child.ang) == 0) {
+        //console.log(Math.sin(Math.PI));
+        if (0 < child.ang && child.ang < (Math.PI * 0.5)) { // Quadrant 1
+            child.B = {x: child.x + child.w * Math.cos(child.ang), y: child.y - child.w * Math.sin(child.ang)};
+            child.C = {x: child.B.x + child.h * Math.sin(child.ang), y: child.B.y + child.h * Math.cos(child.ang)};
+            child.D = {x: child.C.x - child.w * Math.cos(child.ang), y: child.C.y + child.w * Math.sin(child.ang)};
+        }
+
+        else if (1 < child.ang && child.ang < Math.PI) { // Quadrant 2
+            let shiftAng = child.ang - (Math.PI * 0.5);
+            child.B = {x: child.x - child.w * Math.sin(shiftAng), y: child.y - child.w * Math.cos(shiftAng)};
+            child.C = {x: child.B.x + child.h * Math.cos(shiftAng), y: child.B.y - child.h * Math.sin(shiftAng)};
+            child.D = {x: child.C.x + child.w * Math.sin(shiftAng), y: child.C.y + child.w * Math.cos(shiftAng)};
+        }
+        else if (Math.PI < child.ang && child.ang < (Math.PI * 1.5)) { // Quadrant 3
+            let shiftAng = child.ang - Math.PI;
+            child.B = {x: child.x - child.w * Math.cos(shiftAng), y: child.y + child.w * Math.sin(shiftAng)};
+            child.C = {x: child.B.x - child.h * Math.sin(shiftAng), y: child.B.y - child.h * Math.cos(shiftAng)};
+            child.D = {x: child.C.x + child.w * Math.cos(shiftAng), y: child.C.y - child.w * Math.sin(shiftAng)};
+        }
+        else if ((Math.PI * 1.5) < child.ang && child.ang < (Math.PI * 2)) { // Quadrant 4
+            let shiftAng = child.ang - Math.PI * 1.5;
+            child.B = {x: child.x + child.w * Math.sin(shiftAng), y: child.y + child.w * Math.cos(shiftAng)};
+            child.C = {x: child.B.x - child.h * Math.cos(shiftAng), y: child.B.y + child.h * Math.sin(shiftAng)};
+            child.D = {x: child.C.x - child.w * Math.sin(shiftAng), y: child.C.y - child.w * Math.cos(shiftAng)};
+        }
+        else if (child.ang == 0 || child.ang == (Math.PI * 2)) { // X Axis
+            //console.log("x Axis");
             child.B = {x: child.x + child.w, y: child.y};
             child.C = {x: child.x + child.w, y: child.y + child.h};
             child.D = {x: child.x, y: child.y + child.h};
         }
-        else if (Math.abs(Math.sin(child.ang)) < 1) {
-            // child.B = rotCoord(child.B.x, child.B.y, child.A.x, child.A.y, child.ang);
-            // child.C = rotCoord(child.C.x, child.C.y, child.A.x, child.A.y, child.ang);
-            // child.D = rotCoord(child.D.x, child.D.y, child.A.x, child.A.y, child.ang);
-            child.B = {x: child.x + (child.w / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang)), y: child.y - (child.w / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang))};
-            child.C = {x: child.B.x + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang)), y: child.B.y + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang))};
-            child.D = {x: child.x + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang)), y: child.y + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang))};
+        else if (child.ang == Math.PI) { // X Axis flipped
+            //console.log("x Axis");
+            child.B = {x: child.x - child.w, y: child.y};
+            child.C = {x: child.x - child.w, y: child.y - child.h};
+            child.D = {x: child.x, y: child.y - child.h};
         }
-        else if (Math.abs(Math.sin(child.ang)) == 1) {
+        else if (child.ang == Math.PI * 0.5) { // Y Axis
             child.B = {x: child.x, y: child.y - child.w};
             child.C = {x: child.x + child.h, y: child.y - child.w};
             child.D = {x: child.x + child.h, y: child.y};
+        }
+        else if (child.ang == Math.PI * 1.5) { // Y Axis flipped
+            child.B = {x: child.x, y: child.y + child.w};
+            child.C = {x: child.x - child.h, y: child.y + child.w};
+            child.D = {x: child.x - child.h, y: child.y};
+        }
+        else { // Invalid angle
+            throw Error("Invalid angle input. Valid angles: 0-2PI");
         }
     }
 }
