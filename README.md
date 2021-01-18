@@ -9,6 +9,9 @@
 - [x] ~REFACTOR RECTANGLE COLLISION~
 - [x] ~Create Wall~
 - [x] ~Fix Rectangle Rotation Scaling Bug~
+- [x] ~Lock Paddle Movement to left and right~
+- [x] ~Make that left and right relative to Paddle~
+- [ ] REFACTOR RECTANGLE DRAWING AGAIN TO USE VECTORS
 - [ ] Ball bounce off paddle
 - [ ] Ball bounce off Wall
 - [ ] Ball bounce off Ball

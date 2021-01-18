@@ -20,10 +20,10 @@ class Rectangle extends GameObject
         this.s = speed;
         this.ang = angle;
         // These are the points on the rectangle, they defined in update()
-        this.A = {x: 0, y: 0};
-        this.B = {x: 0, y: 0};
-        this.C = {x: 0, y: 0};
-        this.D = {x: 0, y: 0};
+        this.A = {x: this.x, y: this.y};
+        this.B = {x: this.x + this.w, y: this.y};
+        this.C = {x: this.x + this.w, y: this.y + this.h};
+        this.D = {x: this.x, y: this.y + this.h};
     } 
 
     draw(child) {
@@ -35,10 +35,10 @@ class Rectangle extends GameObject
         child.context.lineTo(child.C.x, child.C.y);
         child.context.lineTo(child.D.x, child.D.y);
         child.context.fill();
-        // this.context.fillText('A', this.A.x, this.A.y);
-        // this.context.fillText('B', this.B.x, this.B.y);
-        // this.context.fillText('C', this.C.x, this.C.y);
-        // this.context.fillText('D', this.D.x, this.D.y);
+        // child.context.fillText('A', child.A.x, child.A.y);
+        // child.context.fillText('B', child.B.x, child.B.y);
+        // child.context.fillText('C', child.C.x, child.C.y);
+        // child.context.fillText('D', child.D.x, child.D.y);
     }
 
     update(child) {
@@ -49,6 +49,9 @@ class Rectangle extends GameObject
             child.D = {x: child.x, y: child.y + child.h};
         }
         else if (Math.abs(Math.sin(child.ang)) < 1) {
+            // child.B = rotCoord(child.B.x, child.B.y, child.A.x, child.A.y, child.ang);
+            // child.C = rotCoord(child.C.x, child.C.y, child.A.x, child.A.y, child.ang);
+            // child.D = rotCoord(child.D.x, child.D.y, child.A.x, child.A.y, child.ang);
             child.B = {x: child.x + (child.w / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang)), y: child.y - (child.w / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang))};
             child.C = {x: child.B.x + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang)), y: child.B.y + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang))};
             child.D = {x: child.x + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin(child.ang)), y: child.y + (child.h / Math.sin((90 * Math.PI / 180)) * Math.sin((90 * Math.PI / 180) - child.ang))};
@@ -72,27 +75,17 @@ class Paddle extends Rectangle
     }
 
     update(secondsPassed) {
-        // Move with set velocity
+
+        let normV = {x: (this.B.x - this.A.x) / this.w, y: (this.B.y - this.A.y) / this.w};
+
         if (leftPressed) {
-            this.vx = this.s;
+            this.x -= normV.x * this.s * secondsPassed;
+            this.y -= normV.y * this.s * secondsPassed;
         }
         else if (rightPressed) {
-            this.vx = -this.s;
+            this.x += normV.x * this.s * secondsPassed;
+            this.y += normV.y * this.s * secondsPassed;
         }
-        else {
-            this.vx = 0;
-        }
-        if (upPressed) {
-            this.vy = this.s;
-        }
-        else if (downPressed) {
-            this.vy = -this.s;
-        }
-        else {
-            this.vy = 0;
-        }
-        this.x -= (this.vx * secondsPassed);
-        this.y -= (this.vy * secondsPassed);
         Rectangle.prototype.update(this);
     }
 }
