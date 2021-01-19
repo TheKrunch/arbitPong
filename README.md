@@ -12,6 +12,7 @@
 - [x] ~Lock Paddle Movement to left and right~
 - [x] ~Make that left and right relative to Paddle~
 - [x] ~REFACTOR RECTANGLE DRAWING AGAIN TO USE VECTORS~
+- [ ] Look into `isPointInPath()` and `isPointInStroke()`
 - [ ] Ball bounce off paddle
 - [ ] Ball bounce off Wall
 - [ ] Ball bounce off Ball
