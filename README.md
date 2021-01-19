@@ -16,6 +16,8 @@
 - [ ] Ball bounce off Wall
 - [ ] Ball bounce off Ball
 - [ ] Ball bounce effected by Paddle movement
+- [ ] Paddle bound to zone
+- [ ] Cycle paddle colors
 - [ ] Scoring Zone
 - [ ] Scoreboard
 - [ ] Solo version where I bounce against wall
