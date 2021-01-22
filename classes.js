@@ -8,6 +8,8 @@ class GameObject
         this.vy = vy;
 
         this.isColliding = false;
+        this.colorList = ['#00ffff', '#00CED1', '#0000FF', '#000080', '#EE82EE', '#FF00FF', '#4B0082',  '#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FF4500', '#FFFF00', '#00FF00', '#006400'];
+        this.colorIndex = 1;
     }
 }
 
@@ -27,7 +29,7 @@ class Rectangle extends GameObject
     } 
 
     draw(child) {
-        child.context.fillStyle = child.isColliding ? '#ff8080' : '#0099b0';
+        child.context.fillStyle = child.isColliding ? '#ff8080' : child.colorList[child.colorIndex];
         child.context.beginPath()
         child.context.moveTo(child.A.x, child.A.y);
         child.context.lineTo(child.B.x, child.B.y);
@@ -103,6 +105,14 @@ class Paddle extends Rectangle
     }
 
     draw(){
+        if (upPressed && (this.colorIndex < this.colorList.length - 1) && upHeld == false) {
+            this.colorIndex++;
+            upHeld = true;
+        }
+        else if (upPressed && upHeld == false) {
+            this.colorIndex = 0;
+            upHeld = true;
+        }
         Rectangle.prototype.draw(this);
     }
 
@@ -129,6 +139,7 @@ class Wall extends Rectangle
     }
 
     draw(){
+        this.context.fillStyle = this.isColliding ? '#ff8080' : this.colorList[1];
         Rectangle.prototype.draw(this);
     }
 
@@ -148,7 +159,7 @@ class Ball extends GameObject
     draw(){
         this.context.save();
         this.context.strokeStyle = 'white';
-        this.context.fillStyle = this.isColliding ? '#ff8080' : '#0099b0';
+        this.context.fillStyle = this.isColliding ? '#ff8080' : this.colorList[1];
         this.context.beginPath();
         this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         this.context.fill();
@@ -158,6 +169,7 @@ class Ball extends GameObject
         this.context.beginPath();
         this.context.moveTo(0,0);
         this.context.lineTo(this.r, 0);
+        this.context.strokeStyle = '#000000';
         this.context.stroke();
         this.context.restore();
     }

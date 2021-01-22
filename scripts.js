@@ -3,11 +3,13 @@ var leftPressed = false;
 var rightPressed = false;
 var upPressed = false;
 var downPressed = false;
+var upHeld = false;
+var downHeld = false;
 var selectedBall = null;
 
 function createWorld() {
     gameObjects = [
-        // new Paddle(context, 220, 150, 0, 0, 100, 25, 200, Math.PI * 2.0),
+        // new Paddle(context, 220, 150, 0, 0, 100, 25, 200, Math.PI * 2.0), 
         new Paddle(context, 300, 350, 0, 0, 100, 25, 200, 0),
         new Wall(context, 300, 280, 0, 0, 250, 15, 0, Math.PI * 0.55),
         new Wall(context, 450, 150, 0, 0, 250, 15, 0, Math.PI * 0.15),
@@ -39,8 +41,14 @@ document.onkeyup = function(e) {
     // Check if a key is not held down
     if(e.key === 'a') leftPressed = false;
     if(e.key === 'd') rightPressed = false;
-    if(e.key === 'w') upPressed = false;
-    if(e.key === 's') downPressed = false;    
+    if(e.key === 'w') {
+        upPressed = false;
+        upHeld = false;
+    }
+    if(e.key === 's') {
+        downPressed = false;
+        downHeld = false;
+    }
 }
 
 canvas.onmousedown = function(e) {
