@@ -10,9 +10,9 @@ let requestID;
 window.onload = init;
 
 function init() {
-    // Get a reference to the canvas
-    canvas = document.getElementById('canvas');
-    context = canvas.getContext('2d');
+    score = 0;
+    // This fixes possible blurryness on HiDPI screens
+    setupCanvas(); // from scripts.js
     
     createWorld(); // from scripts.js
 
@@ -32,6 +32,8 @@ function gameLoop(timeStamp) {
     updateAndDrawObjects(); // from scripts.js
     
     showFPS(); // from scripts.js
+
+    showScore(); // from scripts.js
 
     // Keep requesting new frames
     requestID = window.requestAnimationFrame(gameLoop);

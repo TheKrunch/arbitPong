@@ -33,7 +33,7 @@ class Rectangle extends GameObject
         child.context.beginPath()
         child.context.moveTo(child.A.x, child.A.y);
         child.context.lineTo(child.B.x, child.B.y);
-        child.context.stroke();
+        //child.context.stroke();
         child.context.lineTo(child.C.x, child.C.y);
         child.context.lineTo(child.D.x, child.D.y);
         child.context.fill();

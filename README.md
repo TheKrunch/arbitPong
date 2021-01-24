@@ -12,16 +12,28 @@
 - [x] ~Lock Paddle Movement to left and right~
 - [x] ~Make that left and right relative to Paddle~
 - [x] ~REFACTOR RECTANGLE DRAWING AGAIN TO USE VECTORS~
-- [ ] Look into `isPointInPath()` and `isPointInStroke()`
-- [ ] Ball bounce off paddle
-- [ ] Ball bounce off Wall
-- [ ] Ball bounce off Ball
-- [ ] Ball bounce effected by Paddle movement
+- [x] ~Address canvas resolution on HiDPI screens~
+- [x] ~Refactor all intersect functions so that edges and points all have same format~
+- [x] ~Create Bounce Edge function~
+- [ ] BUG where ball intersects with paddle corner
+- [ ] BUG with shallow angle bounce (probably because of variable framerate)
+- [ ] BUG with number of bounces happening on each bounce (looks like 9 instead of 1)
+- [ ] BUG with odd number of balls not bouncing (suspect order of balls ing gameObjects list)
+- [ ] BUG with moving paddle into ball with A and D
+- [ ] Create Bounce Ball function
+- [x] Consider grouping similar/related functions in scripts.js
+- [ ] Look into canvas scaling with window
+- [ ] Ball bounces off Rectangle
+- [ ] Ball bounces off Ball
+- [ ] Ball bounces are effected by Paddle movement
 - [ ] Paddle bound to zone
 - [x] ~Cycle paddle colors~
+- [ ] Add color property to game object constructor
+- [ ] Expose color changing for all classes 
 - [ ] Scoring Zone
 - [ ] Scoreboard
 - [ ] Solo version where I bounce against wall
 - [ ] Two player local
 - [ ] Arbitrary number of player field generation
+- [ ] Draw from center of canvas/window versus top left?
 - [ ] _Probably new TODO at this point_ Online Multiplayer

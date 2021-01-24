@@ -6,15 +6,17 @@
         <title>HTML5 Game</title>
         <meta name="description" content="A basic HTML5 game">
         <meta name="author" content="Matt">
+        
+        <link rel="stylesheet" type="text/css" href="./styles.css">
     </head>
     <body>
 
-        <canvas id="canvas" width="750" height="400" style="border:1px solid lightgray;">
+        <canvas id="canvas" width="750" height="400">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
         <div style="text-align: center; width: 100%;">
-            <button type="button" onclick="window.cancelAnimationFrame(requestID); init();">Refresh</button>
-            <p>Move your paddle with A & D, you can change its color with W. Click "Refresh" to reset!</p>
+            <button type="button" onclick="window.cancelAnimationFrame(requestID); init();">Reset</button>
+            <p>Move your paddle with <b>A</b> & <b>D</b>, you can change its color with <b>W</b>. Click <b>Reset</b> to... reset.</p>
         </div>
 
         <script src="./classes.js"></script>

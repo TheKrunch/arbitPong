@@ -1,0 +1,16 @@
+@import url("https://use.typekit.net/kej7ghw.css");
+
+#canvas {
+    width: 750px;
+    height: 400px;
+}
+
+body {
+    font-family: moniker;
+    font-size: 21px;
+    font-weight: 400;
+}
+
+b {
+    font-weight: 700;
+}
