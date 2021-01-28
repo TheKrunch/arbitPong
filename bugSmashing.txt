@@ -1,4 +1,4 @@
-Corner Intersect BUG
+Corner Intersect BUG (FIXED)
 
 M's Solution:
 Check if intersecting with corner by using pointBallIntersect().
@@ -11,11 +11,11 @@ If it is, run a special cornerBounce() function that purposefully bounces the ba
 You could even use the, as of yet, unwritten ballBounce() function in conjunction with the imaginary ball.
 
 
-Shallow Angle BUG
+Shallow Angle BUG (MAYBE FIXED)
 (Suspect it comes from variable refresh/frame rate)
 
 
-Multiple Bounces BUG
+Multiple Bounces BUG (FIXED)
 
 M's Solution 1:
 Add a cool down period after a bounce.
@@ -24,11 +24,11 @@ M's Solution 2:
 Displace the ball out of the rect when it collides
 
 
-Odd number of Balls BUG
+Odd number of Balls BUG (FIXED)
 (Suspect it has to do with gameObjects list and the order objects get compared in detectCollisions())
 
 
-Paddle moving into Ball BUG
+Paddle moving into Ball BUG (FIXED)
 
 M's Solution:
 Similer to Multiple Bounces Solution 2, move ball out of rectangle when they collide.

@@ -18,10 +18,13 @@ function createWorld() {
         new Wall(context, 0, 397, 0, 0, 750, 3, 0, 0),
         new Wall(context, 0, 0, 0, 0, 3, 400, 0, 0),
         new Wall(context, 747, 0, 0, 0, 3, 400, 0, 0),
-        new Ball(context, 400, 250, 0, -1, 11),
-        new Ball(context, 725, 50, -25, 25, 11),
-        new Ball(context, 420, 69, -15, 5, 11),
-        new Ball(context, 25, 25, 25, 25, 15)
+        new Ball(context, 400, 250, 50, 0, 11),
+        new Ball(context, 500, 251, -50, 50, 11),
+        new Ball(context, 420, 69, -50, 50, 11),
+        new Ball(context, 300, 220, 50, 0, 11),
+        new Ball(context, 500, 100, -50, 50, 11),
+        new Ball(context, 410, 40, -50, 50, 11),
+        new Ball(context, 100, 25, 50, 50, 15)
     ];
 }
 
@@ -165,7 +168,7 @@ function intersect(o1, o2) {
 // Thank: https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
 function smartyBallRectIntersect(ball, rect) {
     return (pointInRectangle(ball, rect) ||
-
+        ballCornerIntersect(ball, rect) ||
         intersectBall(ball, {p1: rect.A, p2: rect.B}) ||
         intersectBall(ball, {p1: rect.B, p2: rect.C}) ||
         intersectBall(ball, {p1: rect.C, p2: rect.D}) ||
@@ -174,16 +177,65 @@ function smartyBallRectIntersect(ball, rect) {
 
 function ballBallIntersect(ball1, ball2) {
     // Calculate the distance between the two balls
-    let squareDist = (ball1.x - ball2.x) * (ball1.x - ball2.x) + (ball1.y - ball2.y) * (ball1.y - ball2.y)
+    let squareDist = (ball1.x - ball2.x) * (ball1.x - ball2.x) + (ball1.y - ball2.y) * (ball1.y - ball2.y);
 
     // When the distance is smaller or equal to the sum
     // of the two radiuses, the circles touch or overlap
-    return squareDist <= ((ball1.r + ball2.r) * (ball1.r + ball2.r)) // This will change to if statement that calls ballBounce()
+    if (squareDist <= ((ball1.r + ball2.r) * (ball1.r + ball2.r))) {
+        return ballBounce(ball1, ball2);
+    }
+}
+
+function ballCornerIntersect(ball, rect) {
+    if (pointBallIntersect(rect.A.x, rect.A.y, ball)) {
+        let edgeVec = normalize(vector(edge(rect.A, rect.B)));
+        let ballVec = normalize(vector(edge(rect.A, ball)));
+
+        if (Math.PI * 0.6 < Math.acos(dot(edgeVec, ballVec))) {
+            return edgeBounce(ball, edge(rect.D, rect.A));
+        }
+        else {
+            return edgeBounce(ball, edge(rect.A, rect.B));
+        }
+    }
+
+    else if (pointBallIntersect(rect.B.x, rect.B.y, ball)) {
+        let edgeVec = normalize(vector(edge(rect.B, rect.C)));
+        let ballVec = normalize(vector(edge(rect.B, ball)));
+
+        if (Math.PI * 0.6 < Math.acos(dot(edgeVec, ballVec))) {
+            return edgeBounce(ball, edge(rect.A, rect.B));
+        }
+        else {
+            return edgeBounce(ball, edge(rect.B, rect.C));
+        }
+    }
+    else if (pointBallIntersect(rect.C.x, rect.C.y, ball)) {
+        let edgeVec = normalize(vector(edge(rect.C, rect.D)));
+        let ballVec = normalize(vector(edge(rect.C, ball)));
+
+        if (Math.PI * 0.6 < Math.acos(dot(edgeVec, ballVec))) {
+            return edgeBounce(ball, edge(rect.B, rect.C));
+        }
+        else {
+            return edgeBounce(ball, edge(rect.C, rect.D));
+        }
+    }
+    else if (pointBallIntersect(rect.D.x, rect.D.y, ball)) {
+        let edgeVec = normalize(vector(edge(rect.D, rect.A)));
+        let ballVec = normalize(vector(edge(rect.D, ball)));
+
+        if (Math.PI * 0.6 < Math.acos(dot(edgeVec, ballVec))) {
+            return edgeBounce(ball, edge(rect.C, rect.D));
+        }
+        else {
+            return edgeBounce(ball, edge(rect.D, rect.A));
+        }
+    }
 }
 
 function pointBallIntersect(x, y, ball) {
     let squareDist = (ball.x - x) * (ball.x - x) + (ball.y - y) * (ball.y - y)
-
     return squareDist <= (ball.r * ball.r)
 }
 
@@ -207,7 +259,7 @@ function intersectBall(ball, edge) {
     let dr = Math.sqrt((dx * dx) + (dy * dy));
     let bigD = (edge.p1.x - ball.x) * (edge.p2.y - ball.y) - (edge.p1.y - ball.y) * (edge.p2.x - ball.x);
     
-    // Find the closest point to the circle witin the rectangle
+    // Find the closest point to the circle on the edge
     let closestX = clamp(ball.x, edge.p1.x, edge.p2.x);
     let closestY = clamp(ball.y, edge.p1.y, edge.p2.y);
 
@@ -225,11 +277,53 @@ function intersectBall(ball, edge) {
         return edgeBounce(ball, edge);
     else
         return false;
-    // TODO: Change this to an if statement that calls edgeBounce()
+}
+
+// Stop balls from intersecting with eachother
+// Displaces two balls by the amount they overlap
+function ballBallDisplace(ball1, ball2) {
+    // Distance between ball centers
+    let dist = Math.sqrt((ball1.x - ball2.x) * (ball1.x - ball2.x) + (ball1.y - ball2.y) * (ball1.y - ball2.y));
+    let overlap = 0.5 * (dist - ball1.r - ball2.r);
+
+    // Displace ball1
+    ball1.x -= overlap * (ball1.x - ball2.x) / dist;
+    ball1.y -= overlap * (ball1.y - ball2.y) / dist;
+    // Displace ball2
+    ball2.x += overlap * (ball1.x - ball2.x) / dist;
+    ball2.y += overlap * (ball1.y - ball2.y) / dist;
+    return true;
+}
+
+// Thank: https://www.youtube.com/watch?v=ebq7L2Wtbl4
+// TODO: Some of the math here is redundent with intersectBall()...
+// could possibly refactor this into intersectBall()
+function ballEdgeDisplace(ball, edge) {
+    let lineX1 = edge.p2.x - edge.p1.x;
+    let lineY1 = edge.p2.y - edge.p1.y;
+
+    let lineX2 = ball.x - edge.p1.x;
+    let lineY2 = ball.y - edge.p1.y;
+
+    let edgeLength = lineX1 * lineX1 + lineY1 * lineY1;
+
+    let t = Math.max(0, Math.min(edgeLength, (lineX1 * lineX2 + lineY1 * lineY2))) / edgeLength;
+
+    let closestPointX = edge.p1.x + t * lineX1;
+    let closestPointY = edge.p1.y + t * lineY1;
+
+    let dist = Math.sqrt((ball.x - closestPointX) * (ball.x - closestPointX) + (ball.y - closestPointY) * (ball.y - closestPointY));
+
+    let overlap = 1 * (dist - ball.r - 0.01); // The .01 seems to help fix clipping issues
+
+    // Displace ball
+    ball.x -= overlap * (ball.x - closestPointX) / dist;
+    ball.y -= overlap * (ball.y - closestPointY) / dist;
+    return true;
 }
 
 // Changes the balls vx and vy to bounce off an edge
-// https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
+// Thank: https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
 // r = d - 2(d ⋅ n) * n
 function edgeBounce(ball, edge) {
     // vector of ball (d)
@@ -250,11 +344,22 @@ function edgeBounce(ball, edge) {
     ball.vy = bounceVec.y;
 
     score++;
+    ballEdgeDisplace(ball, edge);
     return true;
 }
 
+// Changes both balls vx and vy to bounce off eachother
 function ballBounce(ball1, ball2) {
-    // CODE GOES HERE
+    let tempVX = ball1.vx;
+    let tempVY = ball1.vy;
+
+    ball1.vx = ball2.vx;
+    ball1.vy = ball2.vy;
+
+    ball2.vx = tempVX;
+    ball2.vy = tempVY;
+    ballBallDisplace(ball1, ball2);
+    return true;
 }
 
 // HELPER FUNCTIONS

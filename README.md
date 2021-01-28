@@ -15,16 +15,16 @@
 - [x] ~Address canvas resolution on HiDPI screens~
 - [x] ~Refactor all intersect functions so that edges and points all have same format~
 - [x] ~Create Bounce Edge function~
-- [ ] BUG where ball intersects with paddle corner
+- [x] ~BUG where ball intersects with paddle corner~
 - [ ] BUG with shallow angle bounce (probably because of variable framerate)
-- [ ] BUG with number of bounces happening on each bounce (looks like 9 instead of 1)
-- [ ] BUG with odd number of balls not bouncing (suspect order of balls ing gameObjects list)
-- [ ] BUG with moving paddle into ball with A and D
-- [ ] Create Bounce Ball function
+- [x] ~BUG with number of bounces happening on each bounce (looks like 9 instead of 1)~
+- [x] ~BUG with odd number of balls not bouncing (suspect order of balls ing gameObjects list)~
+- [x] ~BUG with moving paddle into ball with A and D~
+- [x] ~Create Bounce Ball function~
 - [x] Consider grouping similar/related functions in scripts.js
 - [ ] Look into canvas scaling with window
-- [ ] Ball bounces off Rectangle
-- [ ] Ball bounces off Ball
+- [x] ~Ball bounces off Rectangle~
+- [x] ~Ball bounces off Ball~
 - [ ] Ball bounces are effected by Paddle movement
 - [ ] Paddle bound to zone
 - [x] ~Cycle paddle colors~
