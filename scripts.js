@@ -182,7 +182,8 @@ function ballBallIntersect(ball1, ball2) {
     // When the distance is smaller or equal to the sum
     // of the two radiuses, the circles touch or overlap
     if (squareDist <= ((ball1.r + ball2.r) * (ball1.r + ball2.r))) {
-        return ballBounce(ball1, ball2);
+        ballBounce(ball1, ball2);
+        return true;
     }
 }
 
@@ -273,10 +274,13 @@ function intersectBall(ball, edge) {
         return false
     }
     
-    if (0 <= (ball.r * ball.r) * (dr * dr) - (bigD * bigD))
-        return edgeBounce(ball, edge);
-    else
+    if (0 <= (ball.r * ball.r) * (dr * dr) - (bigD * bigD)) {
+        edgeBounce(ball, edge);
+        return true;
+    }
+    else {
         return false;
+    }
 }
 
 // Stop balls from intersecting with eachother
@@ -292,7 +296,6 @@ function ballBallDisplace(ball1, ball2) {
     // Displace ball2
     ball2.x += overlap * (ball1.x - ball2.x) / dist;
     ball2.y += overlap * (ball1.y - ball2.y) / dist;
-    return true;
 }
 
 // Thank: https://www.youtube.com/watch?v=ebq7L2Wtbl4
@@ -319,7 +322,6 @@ function ballEdgeDisplace(ball, edge) {
     // Displace ball
     ball.x -= overlap * (ball.x - closestPointX) / dist;
     ball.y -= overlap * (ball.y - closestPointY) / dist;
-    return true;
 }
 
 // Changes the balls vx and vy to bounce off an edge
@@ -359,7 +361,6 @@ function ballBounce(ball1, ball2) {
     ball2.vx = tempVX;
     ball2.vy = tempVY;
     ballBallDisplace(ball1, ball2);
-    return true;
 }
 
 // HELPER FUNCTIONS
